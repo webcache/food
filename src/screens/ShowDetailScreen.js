@@ -1,18 +1,16 @@
 //import liraries
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { View, Image, Text, StyleSheet, FlatList } from 'react-native';
 import { Button } from 'react-native-paper';
 import yelp from './api/yelp';
 import { useNavigation } from '@react-navigation/native';
 
 // create a component
-const ShowResultDetail = ({ route }) => {
+const ShowResultDetail = ({route}) => {
     const [result, setResult] = useState(null);
     const id = route.params.id;
     const back = useNavigation(back);
     
-    //console.log(result);
-
     const getResult = async (id) => {
         const response = await yelp.get(`/${id}`);
         setResult(response.data);
@@ -20,9 +18,9 @@ const ShowResultDetail = ({ route }) => {
 
     useEffect(() => {
         getResult(id);
-    },[]);
+    }, []);
 
-    if(!result) {
+    if (!result) {
         return null;
     }
    
@@ -34,9 +32,9 @@ const ShowResultDetail = ({ route }) => {
             <FlatList style={styles.photoRow}
                 horizontal
                 data={result.photos}
-                keyExtractor={(photo) => photo}
-                renderItem={({item}) => {
-                    return <Image style={styles.Image} source={{uri:item}} />}}
+                keyExtractor={photo => photo}
+                renderItem={({ item }) => {
+                    return <Image style={styles.Image} source={{ uri: item}} />}}
                 showsHorizontalScrollIndicator={false}
             />
             <Text>
@@ -45,8 +43,11 @@ const ShowResultDetail = ({ route }) => {
             <Text>
                 Phone: {result.display_phone}
             </Text>
+            <Text>
+                id: {result.id}
+            </Text>
         </View>
-    )
+    );
 };
 
 // define your styles

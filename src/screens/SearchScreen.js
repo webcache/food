@@ -6,7 +6,7 @@ import useResults from '../hooks/useResults';
 import ResultsList from '../../components/resultsList';
 
 // create a component
-const SearchScreen = () => {
+const SearchScreen = ({  }) => {
     const [term, setTerm] = useState('');
     const [searchApi, results, errorMessage] = useResults();
 
@@ -14,8 +14,8 @@ const filterResultsByPrice = (price) => {
     // price === '$' || '$$' || '$$$'
     return results.filter(result => {
         return result.price === price;
- });
-};
+    });
+}; 
     return (
         <>
             <SearchBar
